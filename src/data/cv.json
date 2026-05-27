@@ -1,0 +1,70 @@
+[
+  {
+    "id": "cv",
+    "name": "Jack Kroninger",
+    "headline": "Workday Integrations Consultant",
+    "location": "Cincinnati, Ohio",
+    "summary": "Analyst at Deloitte working in technical Workday integrations. Background in systems thinking, end-to-end builds, and software that has to behave the morning after.",
+    "experience": [
+      {
+        "company": "Deloitte",
+        "role": "Analyst, Workday Integrations",
+        "startDate": "2024-01",
+        "location": "Cincinnati, OH",
+        "highlights": [
+          "Design and implement Workday Studio, EIB and Core Connector integrations for large enterprise clients across HCM, payroll, and financials.",
+          "Lead technical discovery for incoming client engagements; translate operational requirements into integration architectures.",
+          "Maintain a small library of internal templates and tooling that has shortened standard integration delivery times."
+        ]
+      },
+      {
+        "company": "Deloitte",
+        "role": "Technology Consulting Intern",
+        "startDate": "2023-06",
+        "endDate": "2024-01",
+        "location": "Cincinnati, OH",
+        "highlights": [
+          "Rotated across HR Transformation engagements; contributed to integration design and testing on two Workday deployments."
+        ]
+      },
+      {
+        "company": "Independent / freelance",
+        "role": "Software Engineer",
+        "startDate": "2021-06",
+        "endDate": "2023-05",
+        "location": "Remote",
+        "highlights": [
+          "Built and shipped small contract projects for local businesses; learned the gap between school code and production code."
+        ]
+      }
+    ],
+    "education": [
+      {
+        "institution": "University of Cincinnati",
+        "degree": "B.B.A.",
+        "field": "Information Systems",
+        "startDate": "2020-08",
+        "endDate": "2024-05",
+        "notes": "Magna cum laude. Concentration in business analytics."
+      }
+    ],
+    "skills": [
+      {
+        "category": "Platforms",
+        "items": ["Workday Studio", "EIB", "Core Connector", "PECI / PICOF"]
+      },
+      {
+        "category": "Languages",
+        "items": ["Go", "TypeScript", "Python", "SQL", "XSLT"]
+      },
+      {
+        "category": "Infrastructure",
+        "items": ["Proxmox", "Docker", "Caddy", "PostgreSQL", "ZFS"]
+      },
+      {
+        "category": "Tools",
+        "items": ["Git", "Linux", "Astro", "HTMX"]
+      }
+    ]
+  }
+]

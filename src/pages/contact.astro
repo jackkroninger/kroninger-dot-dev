@@ -1,0 +1,154 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const contactEntry = await getEntry('contact', 'contact');
+if (!contactEntry) throw new Error('Missing src/data/contact.json entry with id "contact".');
+const contact = contactEntry.data;
+
+// Location is authored once, in cv.json.
+const cvEntry = await getEntry('cv', 'cv');
+const location = cvEntry?.data.location;
+---
+
+<BaseLayout title={contact.heading} description={contact.blurb ?? contact.heading}>
+  <div class="contact">
+    <h1 class="contact__title">{contact.heading}</h1>
+    {contact.blurb && <p class="contact__lede">{contact.blurb}</p>}
+
+    <div class="contact__grid">
+      <div>
+        <div class="contact__block-label">Email</div>
+        <div class="contact__block-value">
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        </div>
+      </div>
+      {
+        location && (
+          <div>
+            <div class="contact__block-label">Based in</div>
+            <div class="contact__block-value">{location}</div>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="contact__links">
+      {
+        contact.socials.map((social) => (
+          <a class="contact-link" href={social.url} rel="me noopener noreferrer">
+            <span>{social.platform}</span>
+            <span class="contact-link__arrow">{social.handle ?? 'visit'} ↗</span>
+          </a>
+        ))
+      }
+      {
+        contact.links.map((link) => (
+          <a class="contact-link" href={link.url} rel="noopener noreferrer">
+            <span>{link.label}</span>
+            <span class="contact-link__arrow">visit ↗</span>
+          </a>
+        ))
+      }
+      <a class="contact-link" href="/rss.xml">
+        <span>RSS</span>
+        <span class="contact-link__arrow">subscribe to the feed ↗</span>
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .contact {
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .contact__title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(56px, 8vw, 104px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin: 0 0 40px;
+  }
+  .contact__lede {
+    font-family: var(--body);
+    font-size: clamp(20px, 1.6vw, 24px);
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 56ch;
+    margin: 0 0 80px;
+    text-wrap: pretty;
+  }
+  .contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    padding: 56px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .contact__block-label {
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+  }
+  .contact__block-value {
+    font-family: var(--display);
+    font-size: 26px;
+    line-height: 1.3;
+  }
+  .contact__block-value a {
+    border-bottom: 1px solid var(--rule);
+    transition:
+      border-color 0.18s ease,
+      color 0.18s ease;
+  }
+  .contact__block-value a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .contact__links {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+    font-family: var(--display);
+    font-size: clamp(24px, 3vw, 36px);
+    transition:
+      padding 0.25s ease,
+      color 0.18s ease;
+    cursor: pointer;
+  }
+  .contact-link:hover {
+    padding-left: 16px;
+    color: var(--accent);
+  }
+  .contact-link:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+  .contact-link__arrow {
+    font-family: var(--ui);
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  @media (max-width: 880px) {
+    .contact__grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>

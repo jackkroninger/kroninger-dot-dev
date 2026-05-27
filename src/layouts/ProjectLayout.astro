@@ -1,0 +1,213 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import Placeholder from '../components/Placeholder.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { title, description, pubDate, status, techStack, repoUrl, liveUrl, heroImage } =
+  project.data;
+const year = pubDate.getFullYear();
+const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="project">
+    <a class="project__back" href="/projects">← Projects</a>
+
+    <header class="project__head">
+      <h1 class="project__title">{title}</h1>
+      <p class="project__summary">{description}</p>
+    </header>
+
+    <div class="project__cover">
+      {
+        heroImage ? (
+          <Image src={heroImage} alt={title} widths={[640, 960, 1280]} />
+        ) : (
+          <Placeholder label={`cover · ${project.id}`} />
+        )
+      }
+    </div>
+
+    <div class="project__body">
+      <aside class="project__sidebar">
+        <dl>
+          <dt>Year</dt>
+          <dd>{year}</dd>
+
+          <dt>Status</dt>
+          <dd>{statusLabel}</dd>
+
+          {
+            techStack.length > 0 && (
+              <>
+                <dt>Stack</dt>
+                <dd>
+                  <div class="stack">
+                    {techStack.map((s) => (
+                      <span>{s}</span>
+                    ))}
+                  </div>
+                </dd>
+              </>
+            )
+          }
+
+          {
+            (repoUrl || liveUrl) && (
+              <>
+                <dt>Links</dt>
+                <dd class="project__links">
+                  {repoUrl && (
+                    <a href={repoUrl} rel="noopener noreferrer">
+                      Source ↗
+                    </a>
+                  )}
+                  {liveUrl && (
+                    <a href={liveUrl} rel="noopener noreferrer">
+                      Live ↗
+                    </a>
+                  )}
+                </dd>
+              </>
+            )
+          }
+        </dl>
+      </aside>
+
+      <div class="project__prose">
+        <slot />
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .project {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .project__back {
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 56px;
+    display: inline-block;
+  }
+  .project__back:hover {
+    color: var(--accent);
+  }
+  .project__head {
+    padding-bottom: 56px;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .project__title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(56px, 8vw, 104px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin: 0 0 32px;
+  }
+  .project__summary {
+    font-family: var(--body);
+    font-size: clamp(20px, 1.6vw, 24px);
+    line-height: 1.45;
+    color: var(--ink-dim);
+    max-width: 56ch;
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .project__cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-soft);
+    margin-bottom: 64px;
+    overflow: hidden;
+  }
+  .project__cover :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .project__body {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 80px;
+  }
+  .project__sidebar {
+    font-family: var(--ui);
+    font-size: 12px;
+  }
+  .project__sidebar dl {
+    margin: 0;
+  }
+  .project__sidebar dt {
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  .project__sidebar dd {
+    margin: 0 0 24px;
+    color: var(--ink);
+    font-size: 13px;
+  }
+  .project__sidebar .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .project__sidebar .stack span {
+    border: 1px solid var(--rule);
+    padding: 4px 9px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+  }
+  .project__links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .project__links a {
+    color: var(--ink);
+    transition: color 0.18s ease;
+  }
+  .project__links a:hover {
+    color: var(--accent);
+  }
+  .project__prose :global(p) {
+    font-family: var(--body);
+    font-size: 19px;
+    line-height: 1.65;
+    margin: 0 0 26px;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .project__prose :global(a) {
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    transition:
+      color 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .project__prose :global(a:hover) {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  @media (max-width: 880px) {
+    .project__body {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>

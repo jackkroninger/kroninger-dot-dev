@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+
+const showDrafts = !import.meta.env.PROD;
+const articles = (await getCollection('articles', ({ data }) => showDrafts || !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const count = articles.length;
+---
+
+<BaseLayout title="Writing" description="Essays and field notes by Jack Kroninger.">
+  <div class="index-page">
+    <header class="index-page__head">
+      <h1 class="index-page__title">Writing</h1>
+      <div class="index-page__count">{count} {count === 1 ? 'piece' : 'pieces'}</div>
+    </header>
+    <div class="article-list">
+      {articles.map((article) => <ArticleCard article={article} />)}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .article-list {
+    margin-top: 8px;
+  }
+</style>

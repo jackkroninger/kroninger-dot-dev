@@ -1,0 +1,72 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Placeholder from './Placeholder.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { title, description, pubDate, status } = project.data;
+const year = pubDate.getFullYear();
+const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
+---
+
+<a class="project-card" href={`/projects/${project.id}`}>
+  <div class="project-card__thumb">
+    <Placeholder label={`thumbnail · ${project.id}`} />
+  </div>
+  <div class="project-card__header">
+    <span>{year}</span>
+    <span>{statusLabel}</span>
+  </div>
+  <h2 class="project-card__title">{title}</h2>
+  <p class="project-card__summary">{description}</p>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    cursor: pointer;
+  }
+  .project-card__thumb {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: var(--bg-soft);
+    margin-bottom: 24px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.35s ease;
+  }
+  .project-card:hover .project-card__thumb {
+    transform: translateY(-4px);
+  }
+  .project-card:hover .project-card__title {
+    color: var(--accent);
+  }
+  .project-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .project-card__title {
+    font-family: var(--display);
+    font-size: 28px;
+    line-height: 1.15;
+    margin: 0 0 8px;
+    font-weight: 400;
+    transition: color 0.18s ease;
+  }
+  .project-card__summary {
+    color: var(--ink-dim);
+    max-width: 50ch;
+    font-size: 16px;
+    margin: 0;
+    text-wrap: pretty;
+  }
+</style>

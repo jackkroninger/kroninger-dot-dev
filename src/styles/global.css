@@ -1,0 +1,139 @@
+/* kroninger.dev — design system
+   Direction A · "The Review": dark, serif-driven, restrained.
+   Tokens + resets + base typography + app shell live here; page- and
+   component-specific rules live in each .astro file's scoped <style>. */
+
+:root {
+  --bg: #0c0b09;
+  --bg-soft: #161412;
+  --ink: #e6dfd0;
+  --ink-dim: #9b9486;
+  --ink-faint: #6a6457;
+  --rule: #2a2723;
+  --accent: #ff6a3d;
+
+  --display: "Newsreader", "Source Serif 4", Georgia, serif;
+  --body: "Newsreader", "Source Serif 4", Georgia, serif;
+  --ui: "IBM Plex Sans", "Helvetica Neue", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --gutter: 56px;
+  --measure: 640px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "kern", "liga";
+  min-height: 100vh;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ============= app shell ============= */
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.page {
+  flex: 1;
+  padding: 80px var(--gutter) 120px;
+}
+
+/* ============= shared listing primitives ============= */
+.index-page {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.index-page__head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 32px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--rule);
+}
+.index-page__title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(48px, 6vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.index-page__count {
+  font-family: var(--ui);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ============= placeholder imagery ============= */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 14px,
+      color-mix(in oklab, var(--ink) 4%, transparent) 14px,
+      color-mix(in oklab, var(--ink) 4%, transparent) 15px
+    ),
+    var(--bg-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 880px) {
+  :root {
+    --gutter: 28px;
+  }
+  .page {
+    padding: 56px var(--gutter) 96px;
+  }
+}

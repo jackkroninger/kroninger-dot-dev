@@ -1,0 +1,187 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from './BaseLayout.astro';
+import Placeholder from '../components/Placeholder.astro';
+import { formatDate } from '../lib/date';
+import { readingTime } from '../lib/readingTime';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+const { article } = Astro.props;
+const { title, description, pubDate, tags, heroImage } = article.data;
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="article">
+    <a class="article__back" href="/articles">← Writing</a>
+
+    <div class="article__meta">
+      <span>{formatDate(pubDate)}</span>
+      <span>{readingTime(article.body)}</span>
+      {tags.length > 0 && <span>{tags.join(' · ')}</span>}
+    </div>
+
+    <h1 class="article__title">{title}</h1>
+    <p class="article__dek">{description}</p>
+
+    <div class="article__cover">
+      {
+        heroImage ? (
+          <Image src={heroImage} alt={title} widths={[640, 960, 1280]} />
+        ) : (
+          <Placeholder label={`cover · ${article.id}`} />
+        )
+      }
+    </div>
+
+    <div class="article__body">
+      <slot />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .article__back {
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 56px;
+    display: inline-block;
+  }
+  .article__back:hover {
+    color: var(--accent);
+  }
+  .article__meta {
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  .article__meta span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .article__meta span + span::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--ink-faint);
+    border-radius: 50%;
+    margin-right: 6px;
+  }
+  .article__title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(40px, 5.5vw, 64px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
+    text-wrap: balance;
+  }
+  .article__dek {
+    font-family: var(--body);
+    font-size: clamp(20px, 1.6vw, 24px);
+    line-height: 1.4;
+    color: var(--ink-dim);
+    margin: 0 0 56px;
+    font-style: italic;
+    text-wrap: pretty;
+  }
+  .article__cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-soft);
+    margin: 0 0 56px;
+    overflow: hidden;
+  }
+  .article__cover :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* article body — rendered Markdown */
+  .article__body :global(p) {
+    font-family: var(--body);
+    font-size: 19px;
+    line-height: 1.65;
+    margin: 0 0 26px;
+    text-wrap: pretty;
+    color: var(--ink);
+  }
+  .article__body :global(> p:first-child::first-letter) {
+    font-family: var(--display);
+    font-size: 5.2em;
+    float: left;
+    line-height: 0.85;
+    margin: 6px 14px -4px 0;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .article__body :global(h2),
+  .article__body :global(h3) {
+    font-family: var(--display);
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 48px 0 16px;
+  }
+  .article__body :global(h2) {
+    font-size: 28px;
+  }
+  .article__body :global(h3) {
+    font-size: 22px;
+  }
+  .article__body :global(a) {
+    color: var(--ink);
+    border-bottom: 1px solid var(--rule);
+    transition:
+      color 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .article__body :global(a:hover) {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .article__body :global(blockquote) {
+    margin: 32px 0;
+    padding-left: 24px;
+    border-left: 2px solid var(--rule);
+    color: var(--ink-dim);
+    font-style: italic;
+  }
+  .article__body :global(img) {
+    width: 100%;
+    margin: 40px 0;
+  }
+  .article__body :global(code) {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--bg-soft);
+    padding: 2px 6px;
+  }
+  .article__body :global(pre) {
+    font-family: var(--mono);
+    background: var(--bg-soft);
+    padding: 20px;
+    overflow-x: auto;
+    margin: 32px 0;
+  }
+  .article__body :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+</style>

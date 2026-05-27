@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const showDrafts = !import.meta.env.PROD;
+const statusRank: Record<string, number> = { active: 0, completed: 1, archived: 2 };
+
+const projects = (await getCollection('projects', ({ data }) => showDrafts || !data.draft)).sort(
+  (a, b) => {
+    const byStatus = statusRank[a.data.status] - statusRank[b.data.status];
+    if (byStatus !== 0) return byStatus;
+    return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  },
+);
+const count = projects.length;
+---
+
+<BaseLayout title="Projects" description="Things Jack Kroninger has built.">
+  <div class="index-page">
+    <header class="index-page__head">
+      <h1 class="index-page__title">Projects</h1>
+      <div class="index-page__count">{count} {count === 1 ? 'entry' : 'entries'}</div>
+    </header>
+    <div class="project-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 56px 48px;
+    padding-top: 56px;
+  }
+  @media (max-width: 880px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+</style>
