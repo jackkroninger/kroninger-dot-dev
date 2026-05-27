@@ -102,6 +102,15 @@ const cv = defineCollection({
         items: z.array(z.string()),
       }),
     ),
+    certifications: z
+      .array(
+        z.object({
+          name: z.string(),
+          date: z.string(), // 'YYYY-MM'
+          url: z.string().optional(), // may be empty / omitted
+        }),
+      )
+      .default([]),
   }),
 });
 

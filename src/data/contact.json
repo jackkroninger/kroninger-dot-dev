@@ -2,13 +2,13 @@
   {
     "id": "contact",
     "heading": "Get in touch",
-    "blurb": "I read every message that lands in my inbox, though I do not always answer quickly. The best way to reach me is by email; the second best is to write a letter and trust the postal service.",
+    "blurb": "I read every message that lands in my inbox, though I do not always answer quickly. The best way to reach me is by email.",
     "email": "jack@kroninger.dev",
     "socials": [
       {
         "platform": "GitHub",
-        "url": "https://github.com/jkroninger",
-        "handle": "@jkroninger"
+        "url": "https://github.com/jackkroninger",
+        "handle": "@jackkroninger"
       },
       {
         "platform": "LinkedIn",
