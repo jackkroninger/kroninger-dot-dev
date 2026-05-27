@@ -105,6 +105,48 @@ Edit the JSON, save, push. Build picks up the new content. Schemas are
 defined in `src/content.config.ts` and enforced at build time — typos and
 missing fields fail the build before deployment.
 
+## Images
+
+The profile photo (`home.json`) and article/project cover images
+(`heroImage` in Markdown frontmatter) all share the same shape:
+
+```yaml
+heroImage:
+  src: ../../assets/projects/thing.jpg   # local asset OR a full https URL
+  alt: "Description for screen readers"
+```
+
+- **Local** — a path (relative to the content file) into `src/assets/…`.
+  Optimized at build time via Astro's `<Image>` (responsive `srcset`, modern
+  formats). Each article/project has a commented `heroImage` example to fill in.
+- **Remote** — any full `https://` URL: an external image, or one you host on
+  **Cloudflare R2**. Remote URLs are rendered as a plain `<img>` (passed
+  through, not re-optimized — R2/Cloudflare handles caching and any resizing).
+- **`alt`** is configurable per image; if omitted it falls back to the entry
+  title. Use `""` for purely decorative imagery.
+- Leave `src` empty (`""`) or omit the image to show the striped placeholder.
+
+### Serving images from Cloudflare R2
+
+Use a **custom domain**, not the `*.r2.dev` development URL (that subdomain is
+rate-limited and intended for non-production; custom domains are what enable
+CDN caching, WAF, and access control):
+
+1. Create an R2 bucket and upload images.
+2. Make it public by connecting a custom domain on this account's zone, e.g.
+   `images.kroninger.dev` — dashboard, or
+   `wrangler r2 bucket domain add <bucket> --domain images.kroninger.dev --zone-id <zone>`.
+   (Don't CNAME to `r2.dev` — that's unsupported.)
+3. Reference objects by their public URL in `src` —
+   `https://images.kroninger.dev/<key>` — responses are cached on Cloudflare's CDN.
+4. Optional: put **Cloudflare Images / Image Resizing** in front for on-the-fly
+   variants (`/cdn-cgi/image/...`).
+
+To have Astro's `<Image>` *optimize* remote images at build instead of passing
+them through, add the host to `image.remotePatterns` in `astro.config.mjs` and
+switch `CoverImage` to use `<Image src={url} inferSize>`. We can wire that up
+when the R2 domain is finalized alongside deployment.
+
 ## Deployment
 
 `main` deploys automatically to [Cloudflare Pages](https://pages.cloudflare.com/)

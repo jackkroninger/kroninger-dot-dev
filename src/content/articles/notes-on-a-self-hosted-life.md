@@ -3,6 +3,9 @@ title: "Notes on a self-hosted life"
 description: "On the small dignities of owning the machine your data lives on, and the unglamorous work of keeping it running."
 pubDate: 2026-04-18
 tags: [homelab, essay]
+# heroImage:                                                    # optional cover image — uncomment to use
+#   src: ../../assets/articles/notes-on-a-self-hosted-life.jpg  # local asset, OR a full https URL (external / Cloudflare R2)
+#   alt: "Describe the image for screen readers"
 draft: true
 ---
 

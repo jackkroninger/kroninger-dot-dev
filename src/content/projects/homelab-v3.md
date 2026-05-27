@@ -4,6 +4,9 @@ description: "A quiet rack in a corner of the basement that runs the services I 
 pubDate: 2026-02-01
 status: active
 techStack: [Proxmox, ZFS, Tailscale, Caddy]
+# heroImage:                                     # optional cover/thumbnail — uncomment to use
+#   src: ../../assets/projects/homelab-v3.jpg     # local asset, OR a full https URL (external / Cloudflare R2)
+#   alt: "Describe the image for screen readers"
 repoUrl: https://github.com/jkroninger/homelab
 draft: false
 ---

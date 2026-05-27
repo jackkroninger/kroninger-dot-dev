@@ -3,7 +3,11 @@
     "id": "home",
     "hero": {
       "heading": "Jack Kroninger",
-      "subheading": "Workday Integrations Consultant · Denver, Colorado"
+      "subheading": "Workday Integrations Consultant · Denver, Colorado",
+      "image": {
+        "src": "",
+        "alt": "Jack Kroninger"
+      }
     },
     "intro": "I am an analyst at Deloitte building technical Workday integrations. Off the clock I run a homelab, write software I don't intend to sell, and take an interest in how systems hold together end-to-end.",
     "featuredArticles": [],

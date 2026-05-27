@@ -3,6 +3,9 @@ title: "What I learned wiring my own network"
 description: "Three VLANs, one mistake, and a quiet appreciation for the people who do this for a living."
 pubDate: 2025-09-03
 tags: [homelab, networking]
+# heroImage:                                       # optional cover image — uncomment to use
+#   src: ../../assets/articles/wiring-my-network.jpg  # local asset, OR a full https URL (external / Cloudflare R2)
+#   alt: "Describe the image for screen readers"
 draft: false
 ---
 

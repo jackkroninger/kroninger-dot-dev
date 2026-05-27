@@ -3,6 +3,9 @@ title: "End-to-end is the only kind of integration that matters"
 description: "Most integration failures are not technical. They are failures of imagination about what the pipe is for."
 pubDate: 2026-02-09
 tags: [integrations, workday]
+# heroImage:                                                 # optional cover image — uncomment to use
+#   src: ../../assets/articles/end-to-end-is-the-only-kind.jpg  # local asset, OR a full https URL (external / Cloudflare R2)
+#   alt: "Describe the image for screen readers"
 draft: false
 ---
 

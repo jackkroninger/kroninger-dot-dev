@@ -4,6 +4,9 @@ description: "A plain-text accounting tool I wrote because every existing one wa
 pubDate: 2025-07-01
 status: active
 techStack: [Go, SQLite, HTMX]
+# heroImage:                                 # optional cover/thumbnail — uncomment to use
+#   src: ../../assets/projects/ledger.jpg     # local asset, OR a full https URL (external / Cloudflare R2)
+#   alt: "Describe the image for screen readers"
 repoUrl: https://github.com/jkroninger/ledger
 draft: false
 ---

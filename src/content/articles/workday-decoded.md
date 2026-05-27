@@ -3,6 +3,9 @@ title: "Workday, decoded"
 description: "A year of building inside one of the more opaque platforms in enterprise software — and what it taught me about API design."
 pubDate: 2025-11-22
 tags: [workday, field notes]
+# heroImage:                                       # optional cover image — uncomment to use
+#   src: ../../assets/articles/workday-decoded.jpg  # local asset, OR a full https URL (external / Cloudflare R2)
+#   alt: "Describe the image for screen readers"
 draft: false
 ---
 

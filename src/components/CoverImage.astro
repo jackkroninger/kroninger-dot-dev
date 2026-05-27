@@ -1,0 +1,43 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Placeholder from './Placeholder.astro';
+
+/**
+ * Renders a configurable image that may be:
+ *  - a local asset (ImageMetadata) -> optimized <Image>
+ *  - a remote URL (string, e.g. external or Cloudflare R2) -> plain <img> passthrough
+ *  - empty / missing -> striped placeholder
+ *
+ * `alt` falls back to `fallbackAlt` (usually the entry title) when not authored.
+ */
+interface Props {
+  image?: { src: ImageMetadata | string; alt?: string };
+  fallbackAlt: string;
+  placeholder: string;
+  widths?: number[];
+  sizes?: string;
+}
+const {
+  image,
+  fallbackAlt,
+  placeholder,
+  widths = [480, 960, 1440],
+  sizes = '100vw',
+} = Astro.props as Props;
+
+const src = image?.src;
+const alt = image?.alt ? image.alt : fallbackAlt;
+const isRemote = typeof src === 'string' && src.length > 0;
+const isLocal = !!src && typeof src !== 'string';
+---
+
+{
+  isLocal ? (
+    <Image src={src as ImageMetadata} alt={alt} widths={widths} sizes={sizes} />
+  ) : isRemote ? (
+    <img src={src as string} alt={alt} loading="lazy" decoding="async" />
+  ) : (
+    <Placeholder label={placeholder} />
+  )
+}
