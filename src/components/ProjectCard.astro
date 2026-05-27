@@ -1,19 +1,25 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import Placeholder from './Placeholder.astro';
+import CoverImage from './CoverImage.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
 }
 const { project } = Astro.props;
-const { title, description, pubDate, status } = project.data;
+const { title, description, pubDate, status, heroImage } = project.data;
 const year = pubDate.getFullYear();
 const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
 ---
 
 <a class="project-card" href={`/projects/${project.id}`}>
   <div class="project-card__thumb">
-    <Placeholder label={`thumbnail · ${project.id}`} />
+    <CoverImage
+      image={heroImage}
+      fallbackAlt={title}
+      placeholder={`thumbnail · ${project.id}`}
+      widths={[400, 800]}
+      sizes="(max-width: 880px) 100vw, 50vw"
+    />
   </div>
   <div class="project-card__header">
     <span>{year}</span>
@@ -36,6 +42,11 @@ const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
     overflow: hidden;
     position: relative;
     transition: transform 0.35s ease;
+  }
+  .project-card__thumb :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .project-card:hover .project-card__thumb {
     transform: translateY(-4px);

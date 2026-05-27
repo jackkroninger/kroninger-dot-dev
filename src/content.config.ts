@@ -1,6 +1,22 @@
 import { defineCollection } from 'astro:content';
+import type { SchemaContext } from 'astro:content';
 import { glob, file } from 'astro/loaders';
 import { z } from 'astro/zod';
+
+/**
+ * A configurable image: `src` is either a local asset (path relative to the
+ * content file, optimized at build) OR a remote URL (external image or one
+ * served from Cloudflare R2), plus `alt` text. An empty `src` ("") means
+ * "not set yet" and falls back to the placeholder. The whole object is
+ * optional, so it can be omitted entirely.
+ */
+const coverImage = (image: SchemaContext['image']) =>
+  z
+    .object({
+      src: z.union([image(), z.string().url(), z.literal('')]),
+      alt: z.string().default(''),
+    })
+    .optional();
 
 const articles = defineCollection({
   loader: glob({ base: './src/content/articles', pattern: '**/*.md' }),
@@ -11,7 +27,7 @@ const articles = defineCollection({
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
       tags: z.array(z.string()).default([]),
-      heroImage: image().optional(),
+      heroImage: coverImage(image),
       draft: z.boolean().default(false),
     }),
 });
@@ -27,7 +43,7 @@ const projects = defineCollection({
       techStack: z.array(z.string()).default([]),
       repoUrl: z.string().url().optional(),
       liveUrl: z.string().url().optional(),
-      heroImage: image().optional(),
+      heroImage: coverImage(image),
       draft: z.boolean().default(false),
     }),
 });
@@ -60,7 +76,9 @@ const home = defineCollection({
       hero: z.object({
         heading: z.string(),
         subheading: z.string().optional(),
-        image: image().optional(),
+        // Profile photo (local asset path or remote URL) + alt text.
+        // Leave src "" or omit `image` to fall back to the placeholder.
+        image: coverImage(image),
       }),
       intro: z.string().optional(),
       featuredArticles: z.array(z.string()).default([]), // article IDs

@@ -1,8 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
 import BaseLayout from './BaseLayout.astro';
-import Placeholder from '../components/Placeholder.astro';
+import CoverImage from '../components/CoverImage.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -24,13 +23,13 @@ const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
     </header>
 
     <div class="project__cover">
-      {
-        heroImage ? (
-          <Image src={heroImage} alt={title} widths={[640, 960, 1280]} />
-        ) : (
-          <Placeholder label={`cover · ${project.id}`} />
-        )
-      }
+      <CoverImage
+        image={heroImage}
+        fallbackAlt={title}
+        placeholder={`cover · ${project.id}`}
+        widths={[640, 960, 1280]}
+        sizes="100vw"
+      />
     </div>
 
     <div class="project__body">

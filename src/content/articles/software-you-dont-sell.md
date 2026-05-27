@@ -3,6 +3,9 @@ title: "On building software you don't sell"
 description: "There is a category of software written by one person, used by one person, that I think we should take more seriously."
 pubDate: 2025-06-14
 tags: [essay]
+# heroImage:                                         # optional cover image — uncomment to use
+#   src: ../../assets/articles/software-you-dont-sell.jpg  # local asset, OR a full https URL (external / Cloudflare R2)
+#   alt: "Describe the image for screen readers"
 draft: false
 ---
 
