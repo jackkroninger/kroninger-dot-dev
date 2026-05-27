@@ -1,0 +1,99 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+}
+interface Props {
+  brand: string;
+  items: NavItem[];
+  pathname: string;
+}
+const { brand, items, pathname } = Astro.props;
+
+const isActive = (href: string) =>
+  pathname === href ||
+  (href !== '/' && (pathname === href || pathname.startsWith(href + '/')));
+---
+
+<nav class="site-nav">
+  <a class="site-nav__brand" href="/" aria-label="Home">{brand}</a>
+  <div class="site-nav__links">
+    {
+      items.map((item) => (
+        <a
+          href={item.href}
+          data-active={isActive(item.href)}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 28px var(--gutter) 24px;
+    border-bottom: 1px solid var(--rule);
+    position: sticky;
+    top: 0;
+    background: color-mix(in oklab, var(--bg) 96%, transparent);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+  }
+  .site-nav__brand {
+    font-family: var(--display);
+    font-size: 18px;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .site-nav__links {
+    display: flex;
+    gap: 28px;
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .site-nav__links a {
+    color: var(--ink-dim);
+    transition: color 0.18s ease;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .site-nav__links a:hover {
+    color: var(--ink);
+  }
+  .site-nav__links a[data-active='true'] {
+    color: var(--ink);
+  }
+  .site-nav__links a[data-active='true']::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -26px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  @media (max-width: 880px) {
+    .site-nav {
+      padding: 20px var(--gutter);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .site-nav__links {
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .site-nav__links a[data-active='true']::after {
+      bottom: -20px;
+    }
+  }
+</style>

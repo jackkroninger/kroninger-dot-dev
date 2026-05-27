@@ -1,0 +1,67 @@
+---
+interface Props {
+  href: string;
+  date: string;
+  title: string;
+  meta: string;
+}
+const { href, date, title, meta } = Astro.props;
+---
+
+<a class="recent-item" href={href}>
+  <div class="recent-item__date">{date}</div>
+  <div class="recent-item__title">{title}</div>
+  <div class="recent-item__meta">{meta}</div>
+</a>
+
+<style>
+  .recent-item {
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    gap: 28px;
+    align-items: baseline;
+    padding: 22px 0;
+    border-top: 1px solid var(--rule);
+    transition: padding 0.25s ease;
+    cursor: pointer;
+  }
+  .recent-item:first-child {
+    border-top: 0;
+    padding-top: 6px;
+  }
+  .recent-item:hover {
+    padding-left: 12px;
+  }
+  .recent-item:hover .recent-item__title {
+    color: var(--accent);
+  }
+  .recent-item__date {
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .recent-item__title {
+    font-family: var(--display);
+    font-size: 22px;
+    line-height: 1.25;
+    color: var(--ink);
+    transition: color 0.18s ease;
+    text-wrap: pretty;
+  }
+  .recent-item__meta {
+    font-family: var(--ui);
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  @media (max-width: 880px) {
+    .recent-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

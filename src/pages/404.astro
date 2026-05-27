@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Not found" description="That page could not be found.">
+  <div class="notfound">
+    <div class="notfound__code">404</div>
+    <h1 class="notfound__title">This page wandered off.</h1>
+    <p class="notfound__text">
+      The address you followed does not lead anywhere — at least not anymore.
+    </p>
+    <div class="notfound__links">
+      <a class="contact-link" href="/">
+        <span>Home</span>
+        <span class="notfound__arrow">back to the start ↗</span>
+      </a>
+      <a class="contact-link" href="/articles">
+        <span>Writing</span>
+        <span class="notfound__arrow">read something instead ↗</span>
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .notfound {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .notfound__code {
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 28px;
+  }
+  .notfound__title {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 24px;
+  }
+  .notfound__text {
+    font-family: var(--body);
+    font-size: clamp(18px, 1.4vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-dim);
+    max-width: var(--measure);
+    margin: 0 0 64px;
+    text-wrap: pretty;
+  }
+  .notfound__links {
+    display: flex;
+    flex-direction: column;
+  }
+  .notfound__links .contact-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 24px 0;
+    border-top: 1px solid var(--rule);
+    font-family: var(--display);
+    font-size: clamp(22px, 2.6vw, 30px);
+    transition:
+      padding 0.25s ease,
+      color 0.18s ease;
+  }
+  .notfound__links .contact-link:last-child {
+    border-bottom: 1px solid var(--rule);
+  }
+  .notfound__links .contact-link:hover {
+    padding-left: 16px;
+    color: var(--accent);
+  }
+  .notfound__arrow {
+    font-family: var(--ui);
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+</style>

@@ -1,0 +1,173 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Placeholder from '../components/Placeholder.astro';
+import RecentItem from '../components/RecentItem.astro';
+import { formatDateShort } from '../lib/date';
+import { readingTime } from '../lib/readingTime';
+
+const homeEntry = await getEntry('home', 'home');
+if (!homeEntry) throw new Error('Missing src/data/home.json entry with id "home".');
+const home = homeEntry.data;
+
+const showDrafts = !import.meta.env.PROD;
+
+const articles = (await getCollection('articles', ({ data }) => showDrafts || !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const projects = (await getCollection('projects', ({ data }) => showDrafts || !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+// Featured entries if curated in home.json, otherwise the three most recent.
+const byId = <T extends { id: string }>(list: T[], ids: string[]) =>
+  ids.map((id) => list.find((e) => e.id === id)).filter((e): e is T => Boolean(e));
+
+const recentArticles =
+  home.featuredArticles.length > 0
+    ? byId(articles, home.featuredArticles)
+    : articles.slice(0, 3);
+const recentProjects =
+  home.featuredProjects.length > 0
+    ? byId(projects, home.featuredProjects)
+    : projects.slice(0, 3);
+
+const statusLabel = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+---
+
+<BaseLayout>
+  <div class="home">
+    <section class="home__hero">
+      <div>
+        {home.hero.subheading && <div class="home__eyebrow">{home.hero.subheading}</div>}
+        <h1 class="home__name">{home.hero.heading}</h1>
+        {home.intro && <p class="home__intro">{home.intro}</p>}
+      </div>
+      <div class="home__portrait">
+        {
+          home.hero.image ? (
+            <Image src={home.hero.image} alt={home.hero.heading} widths={[400, 800, 1200]} />
+          ) : (
+            <Placeholder label="portrait — 4:5" />
+          )
+        }
+      </div>
+    </section>
+
+    {
+      recentArticles.length > 0 && (
+        <section class="home__recent">
+          <div class="home__recent-label">Recent writing</div>
+          <div class="recent-list">
+            {recentArticles.map((a) => (
+              <RecentItem
+                href={`/articles/${a.id}`}
+                date={formatDateShort(a.data.pubDate)}
+                title={a.data.title}
+                meta={readingTime(a.body)}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      recentProjects.length > 0 && (
+        <section class="home__recent">
+          <div class="home__recent-label">Recent projects</div>
+          <div class="recent-list">
+            {recentProjects.map((p) => (
+              <RecentItem
+                href={`/projects/${p.id}`}
+                date={String(p.data.pubDate.getFullYear())}
+                title={p.data.title}
+                meta={statusLabel(p.data.status)}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .home {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .home__hero {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: end;
+    gap: 56px;
+    padding-bottom: 72px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .home__eyebrow {
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 28px;
+  }
+  .home__name {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(54px, 8vw, 104px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px;
+    color: var(--ink);
+  }
+  .home__intro {
+    font-family: var(--body);
+    font-size: clamp(18px, 1.4vw, 22px);
+    line-height: 1.55;
+    max-width: var(--measure);
+    color: var(--ink);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .home__portrait {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: var(--bg-soft);
+    position: relative;
+    overflow: hidden;
+  }
+  .home__portrait :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .home__recent {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 56px;
+    padding: 72px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .home__recent-label {
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 6px;
+  }
+  .recent-list {
+    display: flex;
+    flex-direction: column;
+  }
+  @media (max-width: 880px) {
+    .home__hero,
+    .home__recent {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>

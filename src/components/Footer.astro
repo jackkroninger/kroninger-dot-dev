@@ -1,0 +1,38 @@
+---
+interface Props {
+  copyright: string;
+  tagline?: string;
+}
+const { copyright, tagline } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-foot">
+  <span>{copyright}, {year}</span>
+  {tagline && <span>{tagline}</span>}
+</footer>
+
+<style>
+  .site-foot {
+    border-top: 1px solid var(--rule);
+    padding: 32px var(--gutter);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    font-family: var(--ui);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .site-foot a:hover {
+    color: var(--ink);
+  }
+  @media (max-width: 880px) {
+    .site-foot {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+</style>
