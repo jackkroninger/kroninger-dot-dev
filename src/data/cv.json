@@ -3,67 +3,129 @@
     "id": "cv",
     "name": "Jack Kroninger",
     "headline": "Workday Integrations Consultant",
-    "location": "Cincinnati, Ohio",
-    "summary": "Analyst at Deloitte working in technical Workday integrations. Background in systems thinking, end-to-end builds, and software that has to behave the morning after.",
+    "location": "Denver, Colorado",
+    "summary": "Analyst at Deloitte working in technical Workday integrations. Background in systems thinking, end-to-end builds.",
     "experience": [
       {
         "company": "Deloitte",
-        "role": "Analyst, Workday Integrations",
-        "startDate": "2024-01",
-        "location": "Cincinnati, OH",
+        "role": "Workday Financials Analyst",
+        "startDate": "2025-9",
+        "location": "Denver, CO",
         "highlights": [
-          "Design and implement Workday Studio, EIB and Core Connector integrations for large enterprise clients across HCM, payroll, and financials.",
-          "Lead technical discovery for incoming client engagements; translate operational requirements into integration architectures.",
-          "Maintain a small library of internal templates and tooling that has shortened standard integration delivery times."
         ]
       },
       {
         "company": "Deloitte",
         "role": "Technology Consulting Intern",
-        "startDate": "2023-06",
-        "endDate": "2024-01",
-        "location": "Cincinnati, OH",
+        "startDate": "2024-6",
+        "endDate": "2024-08",
+        "location": "Denver, CO",
         "highlights": [
-          "Rotated across HR Transformation engagements; contributed to integration design and testing on two Workday deployments."
         ]
       },
       {
-        "company": "Independent / freelance",
-        "role": "Software Engineer",
-        "startDate": "2021-06",
-        "endDate": "2023-05",
+        "company": "N2 Content Marketing",
+        "role": "Project Manager",
+        "startDate": "2023-12",
+        "endDate": "2024-06",
         "location": "Remote",
         "highlights": [
-          "Built and shipped small contract projects for local businesses; learned the gap between school code and production code."
+        ]
+      },
+      {
+       "company": "Recetra",
+        "role": "Founder",
+        "startDate": "2022-06",
+        "endDate": "2024-04",
+        "location": "Remote",
+        "highlights": [
+        ]
+      },
+      {
+       	"company": "Mendocino Woodlands Camp Association",
+        "role": "Development Coordinator",
+        "startDate": "2022-08",
+        "endDate": "2023-12",
+        "location": "Remote",
+        "highlights": [
+        ]
+      },
+      {
+       	"company": "Granite Investment Partners",
+        "role": "Technical Project Management Intern",
+        "startDate": "2023-06",
+        "endDate": "2023-08",
+        "location": "El Segundo, CA",
+        "highlights": [
+        ]
+      },
+      {
+       	"company": "Granite Investment Partners",
+        "role": "Equity Analyst Intern",
+        "startDate": "2022-06",
+        "endDate": "2022-08",
+        "location": "El Segundo, CA",
+        "highlights": [
         ]
       }
     ],
     "education": [
       {
-        "institution": "University of Cincinnati",
-        "degree": "B.B.A.",
-        "field": "Information Systems",
-        "startDate": "2020-08",
-        "endDate": "2024-05",
-        "notes": "Magna cum laude. Concentration in business analytics."
+        "institution": "University of Denver",
+        "degree": "B.S.B.A.",
+        "field": "Management",
+        "startDate": "2023-09",
+        "endDate": "2025-06",
+        "notes": ""
+      },
+      {
+       	"institution": "Goucher College (transferred)",
+        "degree": "B.A.",
+        "field": "Economics & Business Administration",
+        "startDate": "2021-08",
+        "endDate": "2023-05",
+        "notes": ""
       }
+
     ],
     "skills": [
       {
         "category": "Platforms",
-        "items": ["Workday Studio", "EIB", "Core Connector", "PECI / PICOF"]
+        "items": ["Workday","Anthropic","Google Cloud"]
       },
       {
         "category": "Languages",
-        "items": ["Go", "TypeScript", "Python", "SQL", "XSLT"]
+        "items": ["Python", "SQL", "XSLT", "JavaScript"]
       },
       {
-        "category": "Infrastructure",
-        "items": ["Proxmox", "Docker", "Caddy", "PostgreSQL", "ZFS"]
+        "category": "Frameworks",
+        "items": ["FastAPI", "LangChain/LangGraph", "Anthropic SDK", "Astro", "React"]
       },
       {
         "category": "Tools",
-        "items": ["Git", "Linux", "Astro", "HTMX"]
+        "items": ["Claude Code", "Git", "Linux", "Docker", "PostgreSQL", "Redis"]
+      }
+    ],
+    "certifications": [
+      {
+        "name": "CompTIA Security+",
+        "date": "2025-12",
+	"url": "https://www.credly.com/badges/fce9aa5f-1f6f-415d-8303-9fef057906f8/public_url"
+      },
+      {
+        "name": "Workday Pro: Record to Report",
+        "date": "2025-11",
+        "url": "https://www.credly.com/badges/60759fea-0e2f-48bc-b0f7-e0da40a5b718/public_url"
+      },
+      {
+        "name": "Workday Pro: Financial Data Loading",
+        "date": "2025-11",
+        "url": ""
+      },
+      {
+        "name": "Microsoft Office Specialist (Excel, PowerPoint, Word)",
+        "date": "2024-03",
+        "url": "https://www.credly.com/badges/82627456-2d50-474c-8152-9290a872c168/public_url"
       }
     ]
   }

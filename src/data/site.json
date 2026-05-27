@@ -11,7 +11,7 @@
       { "label": "Contact", "href": "/contact" }
     ],
     "footer": {
-      "tagline": "Built with Astro. Hosted on Cloudflare Pages.",
+      "tagline": "",
       "copyright": "© Jack Kroninger"
     }
   }
