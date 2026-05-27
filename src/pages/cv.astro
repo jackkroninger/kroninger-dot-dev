@@ -44,11 +44,13 @@ const formatMonth = (ym?: string): string => {
                   {formatMonth(job.startDate)} — {formatMonth(job.endDate)}
                 </div>
               </div>
-              <ul class="cv__bullets">
-                {job.highlights.map((h) => (
-                  <li>{h}</li>
-                ))}
-              </ul>
+              {job.highlights.length > 0 && (
+                <ul class="cv__bullets">
+                  {job.highlights.map((h) => (
+                    <li>{h}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))
         }
@@ -93,6 +95,30 @@ const formatMonth = (ym?: string): string => {
         }
       </dl>
     </section>
+
+    {
+      cv.certifications.length > 0 && (
+        <section class="cv__section">
+          <div class="cv__section-label">Certifications</div>
+          <ul class="cv__certs">
+            {cv.certifications.map((c) => (
+              <li class="cv__cert">
+                <span class="cv__cert-name">
+                  {c.url ? (
+                    <a href={c.url} rel="noopener noreferrer">
+                      {c.name} ↗
+                    </a>
+                  ) : (
+                    c.name
+                  )}
+                </span>
+                <span class="cv__cert-date">{formatMonth(c.date)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
   </div>
 </BaseLayout>
 
@@ -225,6 +251,54 @@ const formatMonth = (ym?: string): string => {
     font-family: var(--body);
     color: var(--ink);
     font-size: 15px;
+  }
+  .cv__certs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cv__cert {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 24px;
+    padding-left: 22px;
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .cv__cert::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 10px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .cv__cert-name {
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+  .cv__cert-name a {
+    border-bottom: 1px solid var(--rule);
+    transition:
+      color 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .cv__cert-name a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .cv__cert-date {
+    font-family: var(--ui);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
   }
   @media (max-width: 880px) {
     .cv__section {
