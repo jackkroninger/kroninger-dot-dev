@@ -9,7 +9,7 @@ heroImage:
   alt: "Screenshot of the RERP home screen displaying demo transactions."
 repoUrl: https://github.com/jackkroninger/rerp
 liveUrl: https://not.public
-draft: true
+draft: false
 ---
 
 ## Abstract
