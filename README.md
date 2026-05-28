@@ -2,7 +2,7 @@
 
 Personal site of Jack Kroninger — articles, projects, and CV.
 
-Live at **[kroninger.dev](https://kroninger.dev)** *(not yet deployed)*.
+Live at **[kroninger.dev](https://kroninger.dev)**.
 
 ## Stack
 
@@ -31,6 +31,37 @@ Visit [localhost:4321](http://localhost:4321).
 | `npm run build`    | Production build to `./dist` (drafts hidden)           |
 | `npm run preview`  | Serve the production build locally                     |
 | `npx astro check`  | Type and content collection validation                 |
+
+## New content workflow
+
+```bash
+# 1. Start from a current main
+git checkout main
+git pull
+
+# 2. Branch
+git checkout -b content/my-article-slug
+
+# 3. Create the file from template
+#    src/content/articles/my-article-slug.md   (frontmatter + body)
+
+# 4. Verify locally — this is the real gate
+npm run build
+
+# 5. Stage + commit
+git add src/content/articles/my-article-slug.md
+git commit -m "content: add article 'My Article Title'"
+
+# 6. Push the branch
+git push -u origin content/my-article-slug
+
+# 7. Open a PR
+gh pr create --base main --title "content: add 'My Article Title'" \
+  --body "New article. Build passes locally."
+
+# 8. Review the preview, then merge
+gh pr merge --squash --delete-branch
+```
 
 ## Project structure
 
