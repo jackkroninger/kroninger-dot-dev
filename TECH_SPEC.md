@@ -23,7 +23,7 @@ and the Git workflow.
 | `/404`                   | `src/pages/404.astro`                   | Static          |
 
 Listing pages display newest-first by `pubDate` (articles) or by `status` then
-date (projects), and exclude drafts in production.
+date (projects), and exclude `draft: true` entries in every environment.
 
 ---
 
@@ -343,31 +343,26 @@ Project writeup in markdown.
 
 ### Listing pages
 
-Filter drafts in production, sort by date descending:
+Filter out drafts (in every environment), sort by date descending:
 
 ```astro
 ---
 import { getCollection } from 'astro:content';
-const articles = await getCollection('articles', ({ data }) =>
-  import.meta.env.PROD ? !data.draft : true
-);
+const articles = await getCollection('articles', ({ data }) => !data.draft);
 articles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 ```
 
 ### Detail pages
 
-Use `getStaticPaths` with the same draft filter so drafts have no URL in
-production:
+Use `getStaticPaths` with the same draft filter so drafts have no URL:
 
 ```astro
 ---
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('articles', ({ data }) =>
-    import.meta.env.PROD ? !data.draft : true
-  );
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
   return articles.map((article) => ({
     params: { slug: article.id },
     props: { article },

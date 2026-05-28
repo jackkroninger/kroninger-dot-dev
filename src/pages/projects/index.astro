@@ -3,10 +3,9 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 
-const showDrafts = !import.meta.env.PROD;
 const statusRank: Record<string, number> = { active: 0, completed: 1, archived: 2 };
 
-const projects = (await getCollection('projects', ({ data }) => showDrafts || !data.draft)).sort(
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => {
     const byStatus = statusRank[a.data.status] - statusRank[b.data.status];
     if (byStatus !== 0) return byStatus;
