@@ -27,8 +27,8 @@ Visit [localhost:4321](http://localhost:4321).
 
 | Command            | Purpose                                                |
 |--------------------|--------------------------------------------------------|
-| `npm run dev`      | Local dev server with HMR (drafts visible)             |
-| `npm run build`    | Production build to `./dist` (drafts excluded)         |
+| `npm run dev`      | Local dev server with HMR (drafts hidden)              |
+| `npm run build`    | Production build to `./dist` (drafts hidden)           |
 | `npm run preview`  | Serve the production build locally                     |
 | `npx astro check`  | Type and content collection validation                 |
 
@@ -71,8 +71,9 @@ optimizes them at build time:
 ![alt text](../../assets/articles/diagram.png)
 ```
 
-Set `draft: true` to keep the article out of the production build while still
-viewing it in `npm run dev`.
+Set `draft: true` to hide the article everywhere — listings, its detail URL,
+the home page, and the RSS feed — in dev, build, and preview alike. To preview
+a draft locally, temporarily set `draft: false`.
 
 ### Add a project
 

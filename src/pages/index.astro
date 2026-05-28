@@ -10,12 +10,10 @@ const homeEntry = await getEntry('home', 'home');
 if (!homeEntry) throw new Error('Missing src/data/home.json entry with id "home".');
 const home = homeEntry.data;
 
-const showDrafts = !import.meta.env.PROD;
-
-const articles = (await getCollection('articles', ({ data }) => showDrafts || !data.draft)).sort(
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const projects = (await getCollection('projects', ({ data }) => showDrafts || !data.draft)).sort(
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 

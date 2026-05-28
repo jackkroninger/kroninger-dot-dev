@@ -3,8 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 
-const showDrafts = !import.meta.env.PROD;
-const articles = (await getCollection('articles', ({ data }) => showDrafts || !data.draft)).sort(
+const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const count = articles.length;

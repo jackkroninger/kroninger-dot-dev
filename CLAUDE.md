@@ -113,8 +113,10 @@ tsconfig.json
 ### Drafts
 - Articles and projects have `draft: boolean` (default `false`) in their schema.
 - Listing pages, detail routes (`getStaticPaths`), and the RSS endpoint all
-  filter `draft: true` entries when `import.meta.env.PROD === true`.
-- In `npm run dev`, all drafts are visible.
+  filter out `draft: true` entries in **every environment** — `npm run dev`,
+  `build`, and `preview` alike. Setting `draft: true` hides the entry from the
+  listing, its detail URL, the home "recent" lists, and the RSS feed.
+- To preview a draft locally, temporarily set `draft: false`.
 
 ### Custom domains
 - `kroninger.dev` is canonical.
