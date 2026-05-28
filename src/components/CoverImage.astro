@@ -2,11 +2,14 @@
 import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import Placeholder from './Placeholder.astro';
+import { isTransformableImage, cfImage, cfImageSrcset } from '../lib/images';
 
 /**
  * Renders a configurable image that may be:
  *  - a local asset (ImageMetadata) -> optimized <Image>
- *  - a remote URL (string, e.g. external or Cloudflare R2) -> plain <img> passthrough
+ *  - a remote URL on our R2 host -> Cloudflare-transformed <img> (resized,
+ *    format=auto, edge-cached) with a responsive srcset
+ *  - any other remote URL -> plain <img> passthrough (hot-linked, untouched)
  *  - empty / missing -> striped placeholder
  *
  * `alt` falls back to `fallbackAlt` (usually the entry title) when not authored.
@@ -28,15 +31,30 @@ const {
 
 const src = image?.src;
 const alt = image?.alt ? image.alt : fallbackAlt;
-const isRemote = typeof src === 'string' && src.length > 0;
 const isLocal = !!src && typeof src !== 'string';
+const remoteSrc = typeof src === 'string' && src.length > 0 ? src : undefined;
+
+// Only images on our R2 host get Cloudflare-transformed; other remote URLs
+// (e.g. a link to an image on another site) pass through untouched.
+const transform = !!remoteSrc && isTransformableImage(remoteSrc);
+// Widest variant is the <img src> fallback for browsers ignoring srcset.
+const widest = widths[widths.length - 1];
 ---
 
 {
   isLocal ? (
     <Image src={src as ImageMetadata} alt={alt} widths={widths} sizes={sizes} />
-  ) : isRemote ? (
-    <img src={src as string} alt={alt} loading="lazy" decoding="async" />
+  ) : transform ? (
+    <img
+      src={cfImage(remoteSrc!, { width: widest })}
+      srcset={cfImageSrcset(remoteSrc!, widths)}
+      sizes={sizes}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+    />
+  ) : remoteSrc ? (
+    <img src={remoteSrc} alt={alt} loading="lazy" decoding="async" />
   ) : (
     <Placeholder label={placeholder} />
   )
