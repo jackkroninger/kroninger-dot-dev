@@ -12,6 +12,12 @@
         "startDate": "2025-9",
         "location": "Denver, CO",
         "highlights": [
+          "Serve as functional Subject Matter Advisor to a cohort of 22 state agencies, fielding ~5 functional questions and delivering 1–2 process demos per week to drive pre-go-live readiness",
+          "Researched, designed, and built a custom in-tenant job aids / help text proof of concept that was adopted into production, now serving ~500 state employees across 92 agencies",
+          "Researched and prototyped a second proof of concept for custom in-flight business process notifications",
+          "Loaded 32 spend categories into a state-and-local-government demo tenant used to support Workday pre-sales pursuits",
+          "Produced 8 client-facing pitch decks supporting Workday's state government sales pipeline spanning all 50 states",
+          "Designed and prototyped a vector-database OSINT tool to accelerate pre-sales research, using FastAPI, React, PostgreSQL with pgvector, LangChain, the Anthropic API, and Mistral embeddings"
         ]
       },
       {
@@ -21,6 +27,9 @@
         "endDate": "2024-08",
         "location": "Denver, CO",
         "highlights": [
+          "Delivered 3 code documentation reports to support a client development team, saving 6+ technical hours per week",
+          "Led a cohort of 5 interns in developing an LLM-based application using Deloitte's internal firm models",
+          "Presented 2 completed change requests to clients to gather final acceptance feedback"
         ]
       },
       {
@@ -30,6 +39,9 @@
         "endDate": "2024-06",
         "location": "Remote",
         "highlights": [
+          "Produced 9 social media videos per week for 3 separate clients across 5 platforms",
+          "Built an internal software tool to automate data entry and reporting, saving 10+ hours of analyst time per week",
+          "Drove a 300% increase in client social media engagement over a two-month period"
         ]
       },
       {
@@ -39,6 +51,10 @@
         "endDate": "2024-04",
         "location": "Remote",
         "highlights": [
+          "Built a donor management SaaS platform for nonprofit organizations",
+          "Founded and scaled the platform to 10+ monthly recurring nonprofit customers",
+          "Arranged 5+ product demos per month with prospective customers",
+          "Built and maintained the marketing site on WordPress, attracting 100+ unique monthly visitors"
         ]
       },
       {
@@ -48,6 +64,9 @@
         "endDate": "2023-12",
         "location": "Remote",
         "highlights": [
+          "Increased monthly recurring donations by 15% year-over-year",
+          "Integrated Google Workspace and Asana to streamline donor-management workflows, saving the organization 10+ hours per week",
+          "Executed a direct-mail marketing campaign yielding a 250% return on investment"
         ]
       },
       {
@@ -57,6 +76,12 @@
         "endDate": "2023-08",
         "location": "El Segundo, CA",
         "highlights": [
+          "Owned the firm's first AI integration initiative end-to-end",
+          "Scoped the problem space by interviewing portfolio managers and analysts to identify pain points in the equity research process",
+          "Built a "chat with documents" application using ChromaDB as a vector database, supporting both single-document queries and queries against the growing corpus for generalized market context",
+          "Managed a development budget of $500 per month for tooling and infrastructure",
+          "Demo well received by leadership; firm assigned a full-time analyst post-internship to productionize the solution as an internal tool",
+          "Led a team of 3 first-year developers during the final week of the internship to support release-ready development"
         ]
       },
       {
@@ -66,6 +91,8 @@
         "endDate": "2022-08",
         "location": "El Segundo, CA",
         "highlights": [
+          "Researched and analyzed 3 publicly traded technology companies, presenting investment theses to the team of portfolio managers",
+	  "Recommendation achieved a 75% year-over-year return on the proposed investment"
         ]
       }
     ],
